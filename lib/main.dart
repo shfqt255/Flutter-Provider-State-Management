@@ -28,11 +28,17 @@ class HomePage extends StatelessWidget {
         centerTitle: true,
       ),
       body: Center(
-        child: Text('${Provider.of<provider>(context, listen: true).get()}'),
+        child: Consumer<provider>(
+          builder: (ctx, _, __) {
+            return Text('${Provider.of<provider>(ctx, listen: true).get()}');
+            // Instead of using Listen true , we can use ctx.watch<provider>().get()
+          },
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Provider.of<provider>(context, listen: false).increment();
+           // Instead of using Listen false , we can use ctx.read<provider>().get()
         },
         child: Icon(Icons.add),
         backgroundColor: Colors.pinkAccent,
